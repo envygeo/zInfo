@@ -6,8 +6,10 @@ Forked from envapplist.py by Jon Hourd
 '''
 import os
 
-baseDir = '//carver/infosys/'
-dirFile = '//carver/infosys/envapps.html'
+baseDir = r'\\ENVGEOSERVER\Maps'
+dirFile = os.path.join(baseDir, 'Map-Project-Index.html')
+metafile = 'project-info.yaml'
+
 htmlheader = """<HTML>
 <body>
     <h1>Environment System List</h1>
@@ -33,14 +35,14 @@ htmlfooter = """
 
 appList = [['Title', 'Link (IE only)', 'Contact', 'Document Dir']]
 for envApp in  filter(lambda x: os.path.isdir(os.path.join(baseDir, x)), os.listdir(baseDir)):
-    infoFile = baseDir + envApp + '/appinfo.txt'
+    infoFile = baseDir + envApp + metafile
     if os.path.isfile(infoFile):
-        print infoFile
+        print(infoFile)
         with open(infoFile) as f:
             lines = f.read().splitlines()
             title, link, contact = lines
         # Check for Doc Directory
-        print title
+        print(title)
         if 'http' in link:
             fullLink = '<a href="{0}">{0}</a>'.format(link)
         else:
@@ -48,15 +50,15 @@ for envApp in  filter(lambda x: os.path.isdir(os.path.join(baseDir, x)), os.list
             fullLink = '<a href="file:///{0}{1}/{2}">'.format(baseDir, envApp, link.replace('\\', '/'))
             fullLink += winPath
             fullLink += '</a>'
-        print link
-        print contact
+        print(link)
+        print(contact)
         if 'gov.yk.ca' not in contact:
             contactLink = '<a href="mailto:service.desk@gov.yk.ca?Subject=Environment Application: {1}" target="_top">{0}</a>'.format(contact, title)
         else:
             contactLink = '<a href="mailto:{0}?Subject={1}" target="_top">{0}</a>'.format(contact, title)
         docDir = baseDir + envApp + '/Doc'
         if os.path.isdir(docDir):
-            print docDir
+            print(docDir)
         docLink = '<a href="file:///{}">{}</a>'.format(docDir, docDir.replace('/','\\'))
         appList.append([title, fullLink, contactLink, docLink if os.path.isdir(docDir) else ''])
         
@@ -66,6 +68,6 @@ apps = [tr.format('\n'.join([td.format(a) for a in app])) for app in appList]
 output = htmlheader;
 output += ''.join(apps);
 output += htmlfooter;
-print output
+print(output)
 with open(dirFile, 'w') as w:
     w.write(output)
