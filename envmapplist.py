@@ -3,6 +3,16 @@ Generate html index of Geomatics Unit map projects.
 
 Matt Wilkie, 2017-12-05
 Forked from envapplist.py by Jon Hourd
+
+Search folder tree for known metadata file and parse it's contents into 
+html. Sample project.ini:
+
+    [project]
+    title = Map Index
+    owner = Matt Wilkie
+    client = Geomatics Unit
+    branch = IMT
+    date_initiated = 2009-02-26
 '''
 import os
 import configparser
