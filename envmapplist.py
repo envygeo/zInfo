@@ -5,10 +5,12 @@ Matt Wilkie, 2017-12-05
 Forked from envapplist.py by Jon Hourd
 '''
 import os
+import configparser
+config = configparser.ConfigParser()
 
 baseDir = r'\\ENVGEOSERVER\Maps'
 dirFile = os.path.join(baseDir, 'Map-Project-Index.html')
-metafile = 'project-info.yaml'
+metafile = 'project.ini'
 
 htmlheader = """<HTML>
 <body>
