@@ -22,3 +22,41 @@ Asking for help elsewhere:
 ## Scripts
 
 **envapplist.py** - by Jon Hourd, made this quick and dirty script to compile this list to save the effort of constantly browsing the directory structure there.  Baby steps towards a better future!
+
+-----
+2018-01-11
+
+Trying `.ini` format and ConfigParser to start with.
+
+Excel fields to migrate (\* important)
+
+    Job Name*
+    Old Map ID
+    New Map ID
+    Series ID
+    Link*
+    Description*
+    Client*
+    Resource
+    SDR
+    Application
+    NOTES
+
+New fields:
+
+    MapID*
+    Title*
+    Subtitle
+    Description*
+    Client*
+    Contacts*
+    Authors*
+
+Derived fields, but INI overrides derived value:
+
+    Link
+    
+...
+
+We want updating to work in both directions. Editing .ini file should update the master table, and editing table should update .ini.
+...or is that just a bad idea? Why do I feel like it should go both ways?
