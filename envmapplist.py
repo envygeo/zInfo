@@ -67,13 +67,14 @@ def main():
             print(link)
             print(contact)
             if 'gov.yk.ca' not in contact:
-                contactLink = '<a href="mailto:service.desk@gov.yk.ca?Subject=Environment Application: {1}" target="_top">{0}</a>'.format(contact, title)
+                contactLink = '<a href="mailto:env-gis-unit@gov.yk.ca?Subject=ENV-Map-ID: {1}" target="_top">{0}</a>'.format(contact, title)
             else:
                 contactLink = '<a href="mailto:{0}?Subject={1}" target="_top">{0}</a>'.format(contact, title)
             docDir = baseDir + envApp + '/Doc'
             if os.path.isdir(docDir):
                 print(docDir)
-            docLink = '<a href="file:///{}">{}</a>'.format(docDir, docDir.replace('/','\\'))
+            #docLink = '<a href="file:///{}">{}</a>'.format(docDir, docDir.replace('/','\\'))
+            docLink = '<a href="file:///{}">{}</a>'.format(infoFile, infoFile)
             appList.append([title, fullLink, contactLink, docLink if os.path.isdir(docDir) else ''])
 
     tr = "<tr>{0}</tr>"
