@@ -44,12 +44,17 @@ def main():
     appList = [['Title', 'Link (IE only)', 'Contact', 'Document Dir']]
     for envApp in  filter(lambda x: os.path.isdir(os.path.join(baseDir, x)), os.listdir(baseDir)):
         infoFile = os.path.join(baseDir, envApp, metafile)
-        print(infoFile)
         if os.path.isfile(infoFile):
             print(infoFile)
-            with open(infoFile) as f:
-                lines = f.read().splitlines()
-                title, link, contact = lines
+            d = read_ini(infoFile)
+            #with open(infoFile) as f:
+            #    lines = f.read().splitlines()
+            #    title, link, contact = lines
+            title = d['title']
+            link = d['branch']
+            contact = d['owner']
+
+
             # Check for Doc Directory
             print(title)
             if 'http' in link:
@@ -78,6 +83,16 @@ def main():
     output += ''.join(apps);
     output += htmlfooter;
     return output
+
+def read_ini(fname):
+    '''parse ini into dictionary'''
+    config.read(fname)
+    print(config.sections())
+    for k in config['project']:
+        print(k)
+    return config['project']
+
+
 
 def write(data, fname):
     with open(fname, 'w') as w:
