@@ -43,7 +43,8 @@ htmlfooter = """
 def main():
     appList = [['Title', 'Link (IE only)', 'Contact', 'Document Dir']]
     for envApp in  filter(lambda x: os.path.isdir(os.path.join(baseDir, x)), os.listdir(baseDir)):
-        infoFile = baseDir + envApp + metafile
+        infoFile = os.path.join(baseDir, envApp, metafile)
+        print(infoFile)
         if os.path.isfile(infoFile):
             print(infoFile)
             with open(infoFile) as f:
