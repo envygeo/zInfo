@@ -23,26 +23,24 @@ def find_metafiles(target, ini):
     '''Return list of project metadata files under target'''
     return glob.glob(f'{baseDir}/**/{INI}', recursive=True)
 
+def parse_ini(filename):
+    print(filename)
+    config.read(filename)
+    section = 'project' # Heading that denotes a Project metadata block
+    if section in config.sections():
+        fields = config.options(section)
+        for f in fields:
+            v = config.get(section, f)
+            print('{:>20}: {}'.format(f, v))
 
-def main():
-    folders = ['Index']
-    section = 'project'
-    for d in folders:
-        location = os.path.join(baseDir, d)
-        print(location)
-        config.read(os.path.join(location, INI))
-        if section in config.sections():
-            fields = config.options(section)
-            for f in fields:
-                v = config.get(section, f)
-                print('{:>20}: {}'.format(f, v))
 
 
 if __name__ == "__main__":
-
-    print(baseDir)
+    #print(baseDir)
     metafiles = find_metafiles(baseDir, INI)
+    #print(metafiles)
 
-    print(metafiles)
-    #main()
+    [parse_ini(f) for f in metafiles]
+
+
 
