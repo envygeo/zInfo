@@ -4,6 +4,9 @@ import inspect
 import configparser
 config = configparser.ConfigParser()
 
+INI = 'project.ini' # name of metadata file indicating a project folder
+
+
 def get_script_dir():
     """Return folder of this running script's location"""
     # thanks @Jose, https://stackoverflow.com/a/44592299/14420
@@ -11,14 +14,15 @@ def get_script_dir():
     dir = os.path.dirname(os.path.abspath(ourscript))
     return dir
 
-baseDir = os.path.join(get_script_dir(), 'test/in')
+baseDir = os.path.join(get_script_dir(), 'test\\in')
 
-dirFile = os.path.join(baseDir, 'test/out', 'Map-Project-Index.html')
-metafile = 'project.ini'
+dirFile = os.path.join(baseDir, 'test\\out', 'Map-Project-Index.html')
+
 
 def find_metafiles(target, ini):
-    '''Return list of project.ini files under target'''
-    return filename in glob.glob(os.path.join(target, ini) , recursive=True)
+    '''Return list of project metadata files under target'''
+    os.chdir(target)
+    return glob.glob(f'**/{INI}', recursive=True)
 
 
 def main():
@@ -27,7 +31,7 @@ def main():
     for d in folders:
         location = os.path.join(baseDir, d)
         print(location)
-        config.read(os.path.join(location, metafile))
+        config.read(os.path.join(location, INI))
         if section in config.sections():
             fields = config.options(section)
             for f in fields:
@@ -36,7 +40,10 @@ def main():
 
 
 if __name__ == "__main__":
-    #ROOT = get_script_dir()
-    #print(ROOT)
-    main()
+
+    print(baseDir)
+    metafiles = find_metafiles(baseDir, INI)
+
+    print(metafiles)
+    #main()
 
