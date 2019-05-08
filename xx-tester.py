@@ -21,8 +21,7 @@ dirFile = os.path.join(baseDir, 'test\\out', 'Map-Project-Index.html')
 
 def find_metafiles(target, ini):
     '''Return list of project metadata files under target'''
-    os.chdir(target)
-    return glob.glob(f'**/{INI}', recursive=True)
+    return glob.glob(f'{baseDir}/**/{INI}', recursive=True)
 
 
 def main():
